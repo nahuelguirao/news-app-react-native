@@ -1,40 +1,19 @@
-import { useEffect, useState } from "react";
 import {
   SafeAreaView,
   Text,
   View,
   FlatList,
   StatusBar,
-  Image,
   ActivityIndicator,
-  Alert,
 } from "react-native";
-import { API_KEY, BASE_URL } from "./global";
 import { News } from "./App/types";
 import { styles } from "./App/Styles/main";
+import { RenderNewsPreview } from "./App/Components/RenderNewsPreview";
+import { NothingToSeeMsg } from "./App/Components/NothingToSeeMsg";
+import { useLatestNews } from "./App/hooks/useLatestNews";
 
 export default function App() {
-  const [latestNews, setLatestNews] = useState();
-  const [isLoading, setIsLoading] = useState(false);
-
-  const fetchLatest = async () => {
-    setIsLoading(true);
-    try {
-      const response = await fetch(`${BASE_URL}?country=us&apiKey=${API_KEY}`);
-
-      const data = await response.json();
-
-      setLatestNews(data.articles);
-    } catch (err) {
-      Alert.alert("Something go wrong!");
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchLatest();
-  }, []);
+  const { isLoading, latestNews } = useLatestNews();
 
   return (
     <SafeAreaView style={[styles.background, styles.mainContainer]}>
@@ -45,43 +24,14 @@ export default function App() {
         </Text>
       </View>
       {isLoading ? (
-        <ActivityIndicator size="large" />
+        <ActivityIndicator size="large" style={styles.loader} />
       ) : (
         <FlatList
           data={latestNews}
-          ListEmptyComponent={() => (
-            <Text style={styles.emptyMessage}>Nothing to see here!</Text>
+          ListEmptyComponent={() => <NothingToSeeMsg />}
+          renderItem={({ item }: { item: News }) => (
+            <RenderNewsPreview item={item} />
           )}
-          renderItem={({ item }: { item: News }) => {
-            if (item.title !== "[Removed]") {
-              return (
-                <View style={styles.card}>
-                  <Image
-                    style={{ width: 125, height: 100, borderRadius: 16 }}
-                    source={
-                      item.urlToImage ? { uri: item.urlToImage } : undefined
-                    }
-                  />
-                  <View style={styles.cardPreview}>
-                    <Text
-                      numberOfLines={4}
-                      ellipsizeMode="tail"
-                      style={styles.cardTitle}
-                    >
-                      {item.title}
-                    </Text>
-                    {item.author && item.author.length < 50 && (
-                      <Text style={styles.cardBy}>
-                        By <Text style={styles.spanDetails}>{item.author}</Text>
-                      </Text>
-                    )}
-                  </View>
-                </View>
-              );
-            } else {
-              return null;
-            }
-          }}
         />
       )}
     </SafeAreaView>

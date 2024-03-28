@@ -1,6 +1,7 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 
 const theme = "Dark";
+const mobile = Dimensions.get("window").width < 600;
 
 //Dark theme Colors:
 const mainColorDark = "#121212";
@@ -18,7 +19,9 @@ const detailsColorLight = "#222222";
 const textColorLigth = "#202020";
 
 //Text sizes
+const hugeText = 32;
 const bigText = 24;
+const intermediateText = 20;
 const mediumText = 16;
 const smallText = 12;
 
@@ -29,6 +32,7 @@ export const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     paddingHorizontal: 15,
+    alignItems: mobile ? "flex-start" : "center",
   },
   header: {
     paddingTop: 10,
@@ -36,13 +40,18 @@ export const styles = StyleSheet.create({
   },
   mainText: {
     color: theme == "Dark" ? textColorDark : textColorLigth,
-    fontSize: bigText,
+    fontSize: mobile ? bigText : hugeText,
   },
   spanDetails: {
     color: theme == "Dark" ? primaryColorDark : primaryColorLight,
     fontWeight: "bold",
   },
+  loader: {
+    marginTop: 30,
+    alignSelf: "center",
+  },
   card: {
+    width: Dimensions.get("window").width * 0.9,
     flexDirection: "row",
     padding: 10,
     marginBottom: 16,
@@ -50,15 +59,22 @@ export const styles = StyleSheet.create({
     gap: 16,
     backgroundColor: theme == "Dark" ? mainColorDark : mainColorLigth,
   },
+  cardImg: {
+    width: mobile ? 150 : 200,
+    height: mobile ? 100 : 150,
+    borderRadius: 16,
+  },
   cardPreview: {
     justifyContent: "space-between",
+    maxWidth: "100%",
   },
   cardTitle: {
-    width: "25%",
+    width: mobile ? "45%" : "65%",
     color: theme == "Dark" ? textColorDark : textColorLigth,
+    fontSize: mobile ? mediumText : intermediateText,
   },
   cardBy: {
-    fontSize: smallText,
+    fontSize: mobile ? smallText : mediumText,
     color: theme == "Dark" ? textColorDark : textColorLigth,
   },
   emptyMessage: {
