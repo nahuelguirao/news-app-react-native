@@ -26,17 +26,35 @@ const mediumText = 16;
 const smallText = 12;
 
 export const styles = StyleSheet.create({
-  background: {
-    backgroundColor: theme == "Dark" ? secondaryColorDark : secondaryColorLight,
-  },
   mainContainer: {
     flex: 1,
-    paddingHorizontal: 15,
+    backgroundColor: theme == "Dark" ? secondaryColorDark : secondaryColorLight,
+    paddingHorizontal: mobile ? 15 : 35,
     alignItems: mobile ? "flex-start" : "center",
   },
   header: {
-    paddingTop: 10,
-    paddingBottom: 20,
+    paddingVertical: 10,
+    flexDirection: "row",
+    width: "100%",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  headerIcon: {
+    marginRight: 20,
+    fontSize: mobile ? bigText : hugeText,
+    color: theme == "Dark" ? primaryColorDark : primaryColorLight,
+  },
+  searchCategoryContainer: {
+    height: mobile ? 50 : 70,
+    maxHeight: 70,
+  },
+  searchCategory: {
+    marginRight: 30,
+    fontSize: mobile ? mediumText : bigText,
+    color: theme == "Dark" ? textColorDark : textColorLigth,
+  },
+  actualCategory: {
+    color: theme == "Dark" ? primaryColorDark : primaryColorLight,
   },
   mainText: {
     color: theme == "Dark" ? textColorDark : textColorLigth,
@@ -49,6 +67,9 @@ export const styles = StyleSheet.create({
   loader: {
     marginTop: 30,
     alignSelf: "center",
+  },
+  newsContainer: {
+    marginTop: 5,
   },
   card: {
     width: Dimensions.get("window").width * 0.9,
@@ -74,6 +95,7 @@ export const styles = StyleSheet.create({
     fontSize: mobile ? mediumText : intermediateText,
   },
   cardBy: {
+    maxWidth: "50%",
     fontSize: mobile ? smallText : mediumText,
     color: theme == "Dark" ? textColorDark : textColorLigth,
   },

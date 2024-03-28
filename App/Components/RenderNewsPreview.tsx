@@ -8,15 +8,24 @@ export function RenderNewsPreview({ item }: { item: News }) {
       <View style={styles.card}>
         <Image
           style={styles.cardImg}
-          source={item.urlToImage ? { uri: item.urlToImage } : undefined}
+          source={
+            item.urlToImage
+              ? { uri: item.urlToImage }
+              : {
+                  uri: "https://salonlfc.com/wp-content/uploads/2018/01/image-not-found-scaled-1150x647.png",
+                }
+          }
         />
         <View style={styles.cardPreview}>
           <Text numberOfLines={4} ellipsizeMode="tail" style={styles.cardTitle}>
             {item.title}
           </Text>
-          {item.author && item.author.length < 50 && (
+          {item.author && item.author.length < 60 && (
             <Text style={styles.cardBy}>
-              By <Text style={styles.spanDetails}>{item.author}</Text>
+              By{" "}
+              <Text style={styles.spanDetails} ellipsizeMode="tail">
+                {item.author}
+              </Text>
             </Text>
           )}
         </View>
