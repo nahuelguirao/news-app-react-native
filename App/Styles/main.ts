@@ -33,7 +33,9 @@ export const styles = StyleSheet.create({
     alignItems: mobile ? "flex-start" : "center",
   },
   header: {
+    backgroundColor: theme == "Dark" ? secondaryColorDark : secondaryColorLight,
     paddingVertical: 10,
+    paddingHorizontal: mobile ? 15 : 35,
     flexDirection: "row",
     width: "100%",
     justifyContent: "space-between",

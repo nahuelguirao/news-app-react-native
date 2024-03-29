@@ -1,27 +1,16 @@
-import {
-  SafeAreaView,
-  Text,
-  View,
-  FlatList,
-  StatusBar,
-  ActivityIndicator,
-} from "react-native";
-import { News } from "./App/types";
-import { styles } from "./App/Styles/main";
-import { RenderNewsPreview } from "./App/Components/RenderNewsPreview";
-import { NothingToSeeMsg } from "./App/Components/NothingToSeeMsg";
-import { useFetchNews } from "./App/hooks/useFetchNews";
-import { useState } from "react";
-import { categories } from "./global";
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import MainScreen from "./App/Screens/MainScreen";
 import { FontAwesome } from "@expo/vector-icons";
-import { RenderCategory } from "./App/Components/RenderCategory";
+import SearchScreen from "./App/Screens/SearchScreen";
+import { Alert, StatusBar, Text, TouchableOpacity, View } from "react-native";
+import { styles } from "./App/Styles/main";
+
+const Tab = createBottomTabNavigator();
 
 export default function App() {
-  const [actualCategory, setActualCategory] = useState("Latest");
-  const { isLoading, actualNews } = useFetchNews(actualCategory);
-
   return (
-    <SafeAreaView style={styles.mainContainer}>
+    <NavigationContainer>
       <StatusBar barStyle="light-content" backgroundColor="#202020" />
       <View style={styles.header}>
         <Text style={styles.mainText}>
@@ -29,30 +18,66 @@ export default function App() {
         </Text>
         <FontAwesome name="newspaper-o" style={styles.headerIcon} />
       </View>
-      <FlatList
-        style={styles.searchCategoryContainer}
-        horizontal
-        data={categories}
-        renderItem={({ item }) => (
-          <RenderCategory
-            item={item}
-            actualCategory={actualCategory}
-            setActualCategory={setActualCategory}
-          />
-        )}
-      />
-      {isLoading ? (
-        <ActivityIndicator size="large" style={styles.loader} />
-      ) : (
-        <FlatList
-          style={styles.newsContainer}
-          data={actualNews}
-          ListEmptyComponent={() => <NothingToSeeMsg />}
-          renderItem={({ item }: { item: News }) => (
-            <RenderNewsPreview item={item} />
-          )}
+      <Tab.Navigator
+        screenOptions={{
+          headerShown: false,
+          tabBarActiveTintColor: "#CF6679",
+          tabBarInactiveTintColor: "#EEEE",
+          tabBarStyle: {
+            backgroundColor: "#202020",
+          },
+        }}
+      >
+        <Tab.Screen
+          options={{
+            tabBarIcon: ({ focused }) => (
+              <FontAwesome
+                name="newspaper-o"
+                size={20}
+                color={focused ? "#CF6679" : "#eeee"}
+              />
+            ),
+          }}
+          name="Main"
+          component={MainScreen}
         />
-      )}
-    </SafeAreaView>
+        <Tab.Screen
+          options={{
+            tabBarIcon: ({ focused }) => (
+              <FontAwesome
+                name="search"
+                size={20}
+                color={focused ? "#CF6679" : "#eeee"}
+              />
+            ),
+          }}
+          name="Search"
+          component={SearchScreen}
+        />
+        <Tab.Screen
+          name="ChangeTheme"
+          options={{
+            tabBarIcon: ({ focused, size }) => (
+              <TouchableOpacity onPress={() => Alert.alert("hola")}>
+                <FontAwesome
+                  name="adjust"
+                  size={size}
+                  color={focused ? "#CF6679" : "#eeee"}
+                />
+              </TouchableOpacity>
+            ),
+          }}
+          listeners={{
+            tabPress: (e) => {
+              e.preventDefault();
+            },
+          }}
+        >
+          {({ route, navigation }) => {
+            return null;
+          }}
+        </Tab.Screen>
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 }
