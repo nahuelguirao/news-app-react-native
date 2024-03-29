@@ -1,5 +1,5 @@
 import { ReactNode, createContext, useState } from "react";
-import { ToastAndroid, ToastIOS, Platform } from "react-native";
+import { ToastAndroid } from "react-native";
 
 interface ContextProps {
   theme: string;
@@ -18,11 +18,7 @@ export const ThemeContextProvider = ({ children }: { children: ReactNode }) => {
     theme == "Dark" ? setTheme("Light") : setTheme("Dark");
     const toastMessage =
       theme === "Dark" ? "Switched to Light theme" : "Switched to Dark theme";
-    if (Platform.OS === "android") {
-      ToastAndroid.show(toastMessage, ToastAndroid.SHORT);
-    } else if (Platform.OS === "ios") {
-      ToastIOS.show(toastMessage, ToastIOS.SHORT);
-    }
+    ToastAndroid.show(toastMessage, ToastAndroid.SHORT);
   };
 
   return (
