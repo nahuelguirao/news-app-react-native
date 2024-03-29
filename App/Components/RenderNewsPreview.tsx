@@ -1,8 +1,13 @@
 import { Image, Text, View } from "react-native";
 import { News } from "../types";
-import { styles } from "../Styles/main";
+import { getStyles } from "../Styles/main";
+import { useContext } from "react";
+import { ThemeContext } from "../Context/ThemeContext";
 
 export function RenderNewsPreview({ item }: { item: News }) {
+  const { theme } = useContext(ThemeContext);
+  const styles = getStyles(theme);
+
   if (item.title !== "[Removed]") {
     return (
       <View style={styles.card}>

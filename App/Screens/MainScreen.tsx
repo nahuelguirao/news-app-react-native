@@ -1,22 +1,18 @@
-import {
-  SafeAreaView,
-  Text,
-  View,
-  FlatList,
-  StatusBar,
-  ActivityIndicator,
-} from "react-native";
+import { SafeAreaView, FlatList, ActivityIndicator } from "react-native";
 import { News } from "../types";
-import { styles } from "../Styles/main";
+import { getStyles } from "../Styles/main";
 import { RenderNewsPreview } from "../Components/RenderNewsPreview";
 import { RenderCategory } from "../Components/RenderCategory";
 import { NothingToSeeMsg } from "../Components/NothingToSeeMsg";
 import { useFetchNews } from "../hooks/useFetchNews";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { categories } from "../../global";
-import { FontAwesome } from "@expo/vector-icons";
+import { ThemeContext } from "../Context/ThemeContext";
 
 export default function MainScreen() {
+  const { theme } = useContext(ThemeContext);
+  const styles = getStyles(theme);
+
   const [actualCategory, setActualCategory] = useState("Latest");
   const { isLoading, actualNews } = useFetchNews(actualCategory);
 
@@ -35,7 +31,11 @@ export default function MainScreen() {
         )}
       />
       {isLoading ? (
-        <ActivityIndicator size="large" color="#CF6679" style={styles.loader} />
+        <ActivityIndicator
+          size="large"
+          color={theme == "Dark" ? "#CF6679" : "#1166EE"}
+          style={styles.loader}
+        />
       ) : (
         <FlatList
           style={styles.newsContainer}

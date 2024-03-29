@@ -1,6 +1,7 @@
 import { Text, TouchableOpacity } from "react-native";
-import { styles } from "../Styles/main";
-import { Dispatch } from "react";
+import { getStyles } from "../Styles/main";
+import { Dispatch, useContext } from "react";
+import { ThemeContext } from "../Context/ThemeContext";
 
 interface Props {
   item: string;
@@ -13,6 +14,8 @@ export function RenderCategory({
   setActualCategory,
   actualCategory,
 }: Props) {
+  const { theme } = useContext(ThemeContext);
+  const styles = getStyles(theme);
   return (
     <TouchableOpacity onPress={() => setActualCategory(item)}>
       <Text
