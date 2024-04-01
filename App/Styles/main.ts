@@ -16,6 +16,9 @@ export const getStyles = (theme: string) => {
 
   // Devolver los estilos
   return StyleSheet.create({
+    textColorNormal: {
+      color: textColor,
+    },
     mainContainer: {
       flex: 1,
       backgroundColor: secondaryColor,
@@ -98,6 +101,41 @@ export const getStyles = (theme: string) => {
       textAlign: "center",
       fontSize: mediumText,
       color: textColor,
+    },
+    modal: {
+      flex: 1,
+      padding: 20,
+      backgroundColor: secondaryColor,
+    },
+    modalHeaderTitle: {
+      borderLeftWidth: 1,
+      borderLeftColor: primaryColor,
+      paddingLeft: 15,
+      marginTop: 30,
+      marginBottom: 10,
+      color: textColor,
+      fontWeight: "bold",
+      fontSize: intermediateText,
+    },
+    modalHeaderIcon: {
+      position: "absolute",
+      top: 5,
+      right: Dimensions.get("window").width * 0.05,
+      fontSize: hugeText,
+      alignSelf: "flex-start",
+      color: primaryColor,
+    },
+    modalImg: {
+      marginTop: 20,
+      borderRadius: 16,
+      width: "100%",
+      maxWidth: 450,
+      height: 200,
+    },
+    modalContent: {
+      marginVertical: 30,
+      color: textColor,
+      fontSize: mediumText,
     },
   });
 };

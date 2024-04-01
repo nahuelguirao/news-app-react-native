@@ -1,16 +1,24 @@
-import { Image, Text, View } from "react-native";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 import { News } from "../types";
 import { getStyles } from "../Styles/main";
 import { useContext } from "react";
 import { ThemeContext } from "../Context/ThemeContext";
+import { NewsModal } from "./NewsModal";
+import { useShowModal } from "../hooks/useShowModal";
 
 export function RenderNewsPreview({ item }: { item: News }) {
   const { theme } = useContext(ThemeContext);
   const styles = getStyles(theme);
+  const { handleModal, modalVisible } = useShowModal();
 
   if (item.title !== "[Removed]") {
     return (
-      <View style={styles.card}>
+      <TouchableOpacity style={styles.card} onPress={handleModal}>
+        <NewsModal
+          data={item}
+          visible={modalVisible}
+          handleModal={handleModal}
+        />
         <Image
           style={styles.cardImg}
           source={
@@ -34,7 +42,7 @@ export function RenderNewsPreview({ item }: { item: News }) {
             </Text>
           )}
         </View>
-      </View>
+      </TouchableOpacity>
     );
   } else {
     return null;

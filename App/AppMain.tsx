@@ -33,6 +33,7 @@ export default function AppContent() {
           tabBarInactiveTintColor: theme == "Dark" ? "#EEEEEE" : "#202020",
           tabBarStyle: {
             backgroundColor: theme == "Dark" ? "#202020" : "#DDDDDD",
+            borderTopWidth: 1,
           },
         }}
       >
