@@ -98,7 +98,6 @@ export const getStyles = (theme: string) => {
     },
     emptyMessage: {
       marginTop: 30,
-      textAlign: "center",
       fontSize: mediumText,
       color: textColor,
     },
@@ -136,6 +135,25 @@ export const getStyles = (theme: string) => {
       marginVertical: 30,
       color: textColor,
       fontSize: mediumText,
+    },
+    searchLabel: {
+      fontSize: intermediateText,
+    },
+    searchInput: {
+      width: "100%",
+      maxWidth: 500,
+      borderWidth: 1,
+      borderColor: primaryColor,
+      borderRadius: 16,
+      marginTop: 10,
+      paddingVertical: 5,
+      paddingHorizontal: 10,
+    },
+    flatListNavigation: {
+      marginVertical: 10,
+      flexDirection: "row",
+      justifyContent: "center",
+      alignItems: "center",
     },
   });
 };

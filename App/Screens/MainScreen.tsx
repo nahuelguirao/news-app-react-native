@@ -1,4 +1,4 @@
-import { SafeAreaView, FlatList, ActivityIndicator } from "react-native";
+import { SafeAreaView, FlatList } from "react-native";
 import { News } from "../types";
 import { getStyles } from "../Styles/main";
 import { RenderNewsPreview } from "../Components/RenderNewsPreview";
@@ -8,6 +8,7 @@ import { useFetchNews } from "../hooks/useFetchNews";
 import { useContext, useState } from "react";
 import { categories } from "../../global";
 import { ThemeContext } from "../Context/ThemeContext";
+import { Loading } from "../Components/Loading";
 
 export default function MainScreen() {
   const { theme } = useContext(ThemeContext);
@@ -31,16 +32,14 @@ export default function MainScreen() {
         )}
       />
       {isLoading ? (
-        <ActivityIndicator
-          size="large"
-          color={theme == "Dark" ? "#CF6679" : "#1166EE"}
-          style={styles.loader}
-        />
+        <Loading />
       ) : (
         <FlatList
           style={styles.newsContainer}
           data={actualNews}
-          ListEmptyComponent={() => <NothingToSeeMsg />}
+          ListEmptyComponent={() => (
+            <NothingToSeeMsg message="Error loading content, try again!" />
+          )}
           renderItem={({ item }: { item: News }) => (
             <RenderNewsPreview item={item} />
           )}
