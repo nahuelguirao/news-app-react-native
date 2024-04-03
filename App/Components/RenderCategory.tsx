@@ -4,7 +4,7 @@ import { Dispatch, useContext } from "react";
 import { SettingsContext } from "../Context/SettingsContext";
 
 interface Props {
-  item: string;
+  item: { name: string; value: string };
   setActualCategory: Dispatch<string>;
   actualCategory: string;
 }
@@ -17,14 +17,14 @@ export function RenderCategory({
   const { theme } = useContext(SettingsContext);
   const styles = getStyles(theme);
   return (
-    <TouchableOpacity onPress={() => setActualCategory(item)}>
+    <TouchableOpacity onPress={() => setActualCategory(item.value)}>
       <Text
         style={[
           styles.searchCategory,
-          actualCategory == item && styles.actualCategory,
+          actualCategory == item.value && styles.actualCategory,
         ]}
       >
-        {item}
+        {item.name}
       </Text>
     </TouchableOpacity>
   );

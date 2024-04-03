@@ -4,6 +4,7 @@ import { getStyles } from "../Styles/main";
 import { useContext } from "react";
 import { SettingsContext } from "../Context/SettingsContext";
 import { EvilIcons } from "@expo/vector-icons";
+import { translations } from "../Translations/main";
 
 interface Props {
   data: News;
@@ -12,8 +13,10 @@ interface Props {
 }
 
 export function NewsModal({ data, visible, handleModal }: Props) {
-  const { theme } = useContext(SettingsContext);
+  const { theme, language } = useContext(SettingsContext);
   const styles = getStyles(theme);
+
+  const textTranslations = translations[language];
 
   return (
     <Modal animationType="slide" visible={visible}>
@@ -36,19 +39,19 @@ export function NewsModal({ data, visible, handleModal }: Props) {
         <Text style={styles.modalHeaderTitle}>{data.title}</Text>
         {data.author && (
           <Text style={styles.textColorNormal}>
-            By : <Text style={styles.spanDetails}>{data.author}</Text>
+            {textTranslations.by}{" "}
+            <Text style={styles.spanDetails}>{data.author}</Text>
           </Text>
         )}
         <Text style={styles.modalContent}>
-          {data.content
-            ? data.content
-            : "This new doesn't have a description, click on continue reading"}
+          {data.content ? data.content : textTranslations.noDescription}
         </Text>
         <Text
           onPress={() => Linking.openURL(data.url)}
           style={styles.textColorNormal}
         >
-          To Continue reading <Text style={styles.spanDetails}>Click Here</Text>
+          {textTranslations.toContinueReading}
+          <Text style={styles.spanDetails}> {textTranslations.clickHere}</Text>
         </Text>
       </SafeAreaView>
     </Modal>

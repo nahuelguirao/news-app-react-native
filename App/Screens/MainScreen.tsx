@@ -6,13 +6,16 @@ import { RenderCategory } from "../Components/RenderCategory";
 import { NothingToSeeMsg } from "../Components/NothingToSeeMsg";
 import { useFetchNews } from "../hooks/useFetchNews";
 import { useContext, useState } from "react";
-import { categories } from "../../global";
+import { categoriesES, categoriesEN } from "../../global";
 import { SettingsContext } from "../Context/SettingsContext";
 import { Loading } from "../Components/Loading";
+import { translations } from "../Translations/main";
 
 export default function MainScreen() {
-  const { theme } = useContext(SettingsContext);
+  const { theme, language } = useContext(SettingsContext);
   const styles = getStyles(theme);
+
+  const textTranslations = translations[language];
 
   const [actualCategory, setActualCategory] = useState("Latest");
   const { isLoading, actualNews } = useFetchNews(actualCategory);
@@ -22,8 +25,8 @@ export default function MainScreen() {
       <FlatList
         style={styles.searchCategoryContainer}
         horizontal
-        data={categories}
-        renderItem={({ item }) => (
+        data={language == "es" ? categoriesES : categoriesEN}
+        renderItem={({ item }: { item: { name: string; value: string } }) => (
           <RenderCategory
             item={item}
             actualCategory={actualCategory}
@@ -38,7 +41,7 @@ export default function MainScreen() {
           style={styles.newsContainer}
           data={actualNews}
           ListEmptyComponent={() => (
-            <NothingToSeeMsg message="Error loading content, try again!" />
+            <NothingToSeeMsg message={textTranslations.error} />
           )}
           renderItem={({ item }: { item: News }) => (
             <RenderNewsPreview item={item} />

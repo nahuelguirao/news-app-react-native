@@ -8,10 +8,12 @@ import { News } from "../types";
 import { RenderNewsPreview } from "../Components/RenderNewsPreview";
 import { Loading } from "../Components/Loading";
 import { useFetchSearch } from "../hooks/useFetchSearch";
+import { translations } from "../Translations/main";
 
 export default function SearchScreen() {
-  const { theme } = useContext(SettingsContext);
+  const { theme, language } = useContext(SettingsContext);
   const styles = getStyles(theme);
+  const textTranslations = translations[language];
 
   const {
     isLoading,
@@ -28,11 +30,11 @@ export default function SearchScreen() {
   return (
     <View style={styles.mainContainer}>
       <Text style={[styles.textColorNormal, styles.searchLabel]}>
-        Search News:
+        {textTranslations.searchNews}
       </Text>
       <TextInput
         style={[styles.textColorNormal, styles.searchInput]}
-        placeholder="Try Bitcoin, FIFA..."
+        placeholder={textTranslations.placeHolder}
         placeholderTextColor={theme == "Dark" ? "#EEEEEE" : "#202020"}
         value={searchValue}
         onChangeText={(text) => setSearchValue(text)}
@@ -48,9 +50,9 @@ export default function SearchScreen() {
           )}
           ListEmptyComponent={() =>
             !firstSearch ? (
-              <NothingToSeeMsg message="Nothing to see here, try again!" />
+              <NothingToSeeMsg message={textTranslations.nothingToSee} />
             ) : (
-              <NothingToSeeMsg message="Start searching!" />
+              <NothingToSeeMsg message={textTranslations.startSearching} />
             )
           }
           ListFooterComponent={() =>
@@ -63,7 +65,7 @@ export default function SearchScreen() {
                   color={theme == "Dark" ? "#CF6679" : "#1166EE"}
                 />
                 <Text style={styles.textColorNormal}>
-                  Actual page: {actualPage}
+                  {textTranslations.actualPage}: {actualPage}
                 </Text>
                 <MaterialIcons
                   onPress={handleNextPage}

@@ -9,12 +9,14 @@ import { getStyles } from "./Styles/main";
 import { FontAwesome } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { SettingScreen } from "./Screens/SettingScreen";
+import { translations } from "./Translations/main";
 
 const Tab = createBottomTabNavigator();
 
 export default function AppContent() {
-  const { toggleTheme, theme } = useContext(SettingsContext);
+  const { theme, language } = useContext(SettingsContext);
   const styles = getStyles(theme);
+  const textTranslations: any = translations[language];
 
   return (
     <NavigationContainer>
@@ -57,7 +59,7 @@ export default function AppContent() {
               />
             ),
           }}
-          name="Main"
+          name={textTranslations.main}
           component={MainScreen}
         />
         <Tab.Screen
@@ -78,7 +80,7 @@ export default function AppContent() {
               />
             ),
           }}
-          name="Search"
+          name={textTranslations.search}
           component={SearchScreen}
         />
         <Tab.Screen
@@ -99,7 +101,7 @@ export default function AppContent() {
               />
             ),
           }}
-          name="Settings"
+          name={textTranslations.settings}
           component={SettingScreen}
         />
       </Tab.Navigator>

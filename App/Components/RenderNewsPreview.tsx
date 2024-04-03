@@ -5,11 +5,14 @@ import { useContext } from "react";
 import { SettingsContext } from "../Context/SettingsContext";
 import { NewsModal } from "./NewsModal";
 import { useShowModal } from "../hooks/useShowModal";
+import { translations } from "../Translations/main";
 
 export function RenderNewsPreview({ item }: { item: News }) {
-  const { theme } = useContext(SettingsContext);
+  const { theme, language } = useContext(SettingsContext);
   const styles = getStyles(theme);
   const { handleModal, modalVisible } = useShowModal();
+
+  const textTranslations = translations[language];
 
   if (item.title !== "[Removed]") {
     return (
@@ -35,7 +38,7 @@ export function RenderNewsPreview({ item }: { item: News }) {
           </Text>
           {item.author && item.author.length < 60 && (
             <Text style={styles.cardBy}>
-              By{" "}
+              {textTranslations.by}
               <Text style={styles.spanDetails} ellipsizeMode="tail">
                 {item.author}
               </Text>
