@@ -1,8 +1,8 @@
-import { Image, Linking, Modal, SafeAreaView, Text, View } from "react-native";
+import { Image, Linking, Modal, SafeAreaView, Text } from "react-native";
 import { News } from "../types";
 import { getStyles } from "../Styles/main";
 import { useContext } from "react";
-import { ThemeContext } from "../Context/ThemeContext";
+import { SettingsContext } from "../Context/SettingsContext";
 import { EvilIcons } from "@expo/vector-icons";
 
 interface Props {
@@ -12,7 +12,7 @@ interface Props {
 }
 
 export function NewsModal({ data, visible, handleModal }: Props) {
-  const { theme } = useContext(ThemeContext);
+  const { theme } = useContext(SettingsContext);
   const styles = getStyles(theme);
 
   return (

@@ -1,17 +1,19 @@
 import { useContext } from "react";
-import { ThemeContext } from "./Context/ThemeContext";
-import { StatusBar, Text, TouchableOpacity, View } from "react-native";
+import { SettingsContext } from "./Context/SettingsContext";
+import { StatusBar, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import MainScreen from "./Screens/MainScreen";
 import SearchScreen from "./Screens/SearchScreen";
 import { getStyles } from "./Styles/main";
 import { FontAwesome } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
+import { SettingScreen } from "./Screens/SettingScreen";
 
 const Tab = createBottomTabNavigator();
 
 export default function AppContent() {
-  const { toggleTheme, theme } = useContext(ThemeContext);
+  const { toggleTheme, theme } = useContext(SettingsContext);
   const styles = getStyles(theme);
 
   return (
@@ -42,7 +44,7 @@ export default function AppContent() {
             tabBarIcon: ({ focused }) => (
               <FontAwesome
                 name="newspaper-o"
-                size={20}
+                size={18}
                 color={
                   focused
                     ? theme == "Dark"
@@ -63,7 +65,7 @@ export default function AppContent() {
             tabBarIcon: ({ focused }) => (
               <FontAwesome
                 name="search"
-                size={20}
+                size={18}
                 color={
                   focused
                     ? theme == "Dark"
@@ -80,29 +82,26 @@ export default function AppContent() {
           component={SearchScreen}
         />
         <Tab.Screen
-          name="ChangeTheme"
           options={{
-            tabBarIcon: ({ focused, size }) => (
-              <TouchableOpacity onPress={toggleTheme}>
-                <FontAwesome
-                  name="adjust"
-                  size={size}
-                  color={theme == "Dark" ? "#EEEEEE" : "#202020"}
-                />
-              </TouchableOpacity>
+            tabBarIcon: ({ focused }) => (
+              <Feather
+                name="settings"
+                size={20}
+                color={
+                  focused
+                    ? theme == "Dark"
+                      ? "#CF6679"
+                      : "#1166EE"
+                    : theme == "Dark"
+                    ? "#EEEEEE"
+                    : "#202020"
+                }
+              />
             ),
           }}
-          listeners={{
-            tabPress: (e) => {
-              e.preventDefault();
-              toggleTheme();
-            },
-          }}
-        >
-          {({ route, navigation }) => {
-            return null;
-          }}
-        </Tab.Screen>
+          name="Settings"
+          component={SettingScreen}
+        />
       </Tab.Navigator>
     </NavigationContainer>
   );

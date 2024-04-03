@@ -1,10 +1,10 @@
 import { ActivityIndicator } from "react-native";
 import { getStyles } from "../Styles/main";
 import { useContext } from "react";
-import { ThemeContext } from "../Context/ThemeContext";
+import { SettingsContext } from "../Context/SettingsContext";
 
 export function Loading() {
-  const { theme } = useContext(ThemeContext);
+  const { theme } = useContext(SettingsContext);
   const styles = getStyles(theme);
   return (
     <ActivityIndicator

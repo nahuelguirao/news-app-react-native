@@ -2,12 +2,12 @@ import { Image, Text, TouchableOpacity, View } from "react-native";
 import { News } from "../types";
 import { getStyles } from "../Styles/main";
 import { useContext } from "react";
-import { ThemeContext } from "../Context/ThemeContext";
+import { SettingsContext } from "../Context/SettingsContext";
 import { NewsModal } from "./NewsModal";
 import { useShowModal } from "../hooks/useShowModal";
 
 export function RenderNewsPreview({ item }: { item: News }) {
-  const { theme } = useContext(ThemeContext);
+  const { theme } = useContext(SettingsContext);
   const styles = getStyles(theme);
   const { handleModal, modalVisible } = useShowModal();
 

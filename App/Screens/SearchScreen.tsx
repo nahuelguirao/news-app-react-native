@@ -2,7 +2,7 @@ import { FlatList, Text, TextInput, View } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { getStyles } from "../Styles/main";
 import { useContext } from "react";
-import { ThemeContext } from "../Context/ThemeContext";
+import { SettingsContext } from "../Context/SettingsContext";
 import { NothingToSeeMsg } from "../Components/NothingToSeeMsg";
 import { News } from "../types";
 import { RenderNewsPreview } from "../Components/RenderNewsPreview";
@@ -10,7 +10,7 @@ import { Loading } from "../Components/Loading";
 import { useFetchSearch } from "../hooks/useFetchSearch";
 
 export default function SearchScreen() {
-  const { theme } = useContext(ThemeContext);
+  const { theme } = useContext(SettingsContext);
   const styles = getStyles(theme);
 
   const {

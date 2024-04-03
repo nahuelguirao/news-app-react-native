@@ -1,10 +1,10 @@
-import { ThemeContextProvider } from "./App/Context/ThemeContext";
+import { SettingsContextProvider } from "./App/Context/SettingsContext";
 import AppContent from "./App/AppMain";
 
 export default function App() {
   return (
-    <ThemeContextProvider>
+    <SettingsContextProvider>
       <AppContent />
-    </ThemeContextProvider>
+    </SettingsContextProvider>
   );
 }

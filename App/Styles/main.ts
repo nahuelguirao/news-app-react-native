@@ -155,5 +155,20 @@ export const getStyles = (theme: string) => {
       justifyContent: "center",
       alignItems: "center",
     },
+    settingContainer: {
+      marginTop: 30,
+      width: "100%",
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "space-between",
+      gap: 32,
+    },
+    settingTitle: {
+      fontSize: intermediateText,
+    },
+    settingIcon: {
+      color: primaryColor,
+      fontSize: 30,
+    },
   });
 };

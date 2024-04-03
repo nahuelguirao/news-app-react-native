@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useDebounce } from "./useDebounce";
 import { API_KEY } from "../../global";
+import { SettingsContext } from "../Context/SettingsContext";
 
 export function useFetchSearch() {
+  const { language } = useContext(SettingsContext);
   //STATES
   const [searchValue, setSearchValue] = useState("");
   const [searchResult, setSearchResult] = useState<any>();
@@ -19,7 +21,7 @@ export function useFetchSearch() {
         setFirstSearch(false);
         setIsLoading(true);
         const response = await fetch(
-          `https://newsapi.org/v2/everything?q=${searchValue}&apiKey=${API_KEY}&pageSize=20&page=${actualPage}`
+          `https://newsapi.org/v2/everything?q=${searchValue}&apiKey=${API_KEY}&pageSize=20&page=${actualPage}&language=${language}`
         );
         const data = await response.json();
         setSearchResult(data.articles);
@@ -54,7 +56,7 @@ export function useFetchSearch() {
 
   useEffect(() => {
     fetchSearch();
-  }, [debouncedValue, actualPage]);
+  }, [debouncedValue, actualPage, language]);
 
   return {
     isLoading,

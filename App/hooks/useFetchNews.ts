@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { API_KEY, BASE_URL } from "../../global";
+import { SettingsContext } from "../Context/SettingsContext";
 
 export function useFetchNews(actualCategory: string) {
+  const { country } = useContext(SettingsContext);
   const [actualNews, setActualNews] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -11,7 +13,7 @@ export function useFetchNews(actualCategory: string) {
     setError(null);
 
     try {
-      let url = `${BASE_URL}?country=us&apiKey=${API_KEY}`;
+      let url = `${BASE_URL}?country=${country}&apiKey=${API_KEY}`;
 
       if (actualCategory !== "Latest") {
         url += `&category=${actualCategory.toLowerCase()}`;
@@ -34,7 +36,7 @@ export function useFetchNews(actualCategory: string) {
 
   useEffect(() => {
     fetchNews();
-  }, [actualCategory]);
+  }, [actualCategory, country]);
 
   return { isLoading, actualNews, error };
 }

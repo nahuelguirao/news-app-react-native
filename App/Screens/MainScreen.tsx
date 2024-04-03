@@ -7,11 +7,11 @@ import { NothingToSeeMsg } from "../Components/NothingToSeeMsg";
 import { useFetchNews } from "../hooks/useFetchNews";
 import { useContext, useState } from "react";
 import { categories } from "../../global";
-import { ThemeContext } from "../Context/ThemeContext";
+import { SettingsContext } from "../Context/SettingsContext";
 import { Loading } from "../Components/Loading";
 
 export default function MainScreen() {
-  const { theme } = useContext(ThemeContext);
+  const { theme } = useContext(SettingsContext);
   const styles = getStyles(theme);
 
   const [actualCategory, setActualCategory] = useState("Latest");
