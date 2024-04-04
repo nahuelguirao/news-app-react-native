@@ -8,12 +8,15 @@ import { useShowModal } from "../hooks/useShowModal";
 import { translations } from "../Translations/main";
 
 export function RenderNewsPreview({ item }: { item: News }) {
+  // Styles & Translations
   const { theme, language } = useContext(SettingsContext);
   const styles = getStyles(theme);
-  const { handleModal, modalVisible } = useShowModal();
-
   const textTranslations = translations[language];
 
+  //SHOW/HIDE modal
+  const { handleModal, modalVisible } = useShowModal();
+
+  // Verifies if the new is removed, if not render the new
   if (item.title !== "[Removed]") {
     return (
       <TouchableOpacity style={styles.card} onPress={handleModal}>

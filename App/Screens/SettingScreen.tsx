@@ -7,17 +7,21 @@ import CountryFlag from "react-native-country-flag";
 import { translations } from "../Translations/main";
 
 export function SettingScreen() {
+  //Settings
   const { theme, toggleTheme, country, toggleCountry, language } =
     useContext(SettingsContext);
 
+  //Styles & Translations
   const styles = getStyles(theme);
   const textTranslations = translations[language];
+
   return (
     <View style={styles.mainContainer}>
       <View style={{ flex: 1, justifyContent: "center" }}>
         <Text style={[styles.textColorNormal, { fontSize: 18 }]}>
           {textTranslations.settingsTitle}
         </Text>
+        {/* THEME SETTINGS */}
         <View style={styles.settingContainer}>
           <Text style={[styles.textColorNormal, styles.settingTitle]}>
             {textTranslations.switchTheme}
@@ -29,6 +33,7 @@ export function SettingScreen() {
             onPress={toggleTheme}
           />
         </View>
+        {/* LANGUAGE SETTINGS */}
         <View style={styles.settingContainer}>
           <Text style={[styles.textColorNormal, styles.settingTitle]}>
             {textTranslations.switchLanguage}

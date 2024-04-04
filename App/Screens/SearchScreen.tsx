@@ -11,6 +11,7 @@ import { useFetchSearch } from "../hooks/useFetchSearch";
 import { translations } from "../Translations/main";
 
 export default function SearchScreen() {
+  //Styles & Translations
   const { theme, language } = useContext(SettingsContext);
   const styles = getStyles(theme);
   const textTranslations = translations[language];
@@ -45,9 +46,11 @@ export default function SearchScreen() {
         <FlatList
           style={styles.newsContainer}
           data={searchResult}
+          // RENDER EACH ITEM
           renderItem={({ item }: { item: News }) => (
             <RenderNewsPreview item={item} />
           )}
+          // EMPTY RESULT
           ListEmptyComponent={() =>
             !firstSearch ? (
               <NothingToSeeMsg message={textTranslations.nothingToSee} />
@@ -55,6 +58,7 @@ export default function SearchScreen() {
               <NothingToSeeMsg message={textTranslations.startSearching} />
             )
           }
+          // NAVIGATION
           ListFooterComponent={() =>
             totalResults > 20 && (
               <View style={styles.flatListNavigation}>

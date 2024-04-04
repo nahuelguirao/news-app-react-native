@@ -13,13 +13,13 @@ interface Props {
 }
 
 export function NewsModal({ data, visible, handleModal }: Props) {
+  // Styles and translations
   const { theme, language } = useContext(SettingsContext);
   const styles = getStyles(theme);
-
   const textTranslations = translations[language];
 
   return (
-    <Modal animationType="slide" visible={visible}>
+    <Modal animationType="slide" onRequestClose={handleModal} visible={visible}>
       <SafeAreaView style={styles.modal}>
         <EvilIcons
           onPress={handleModal}

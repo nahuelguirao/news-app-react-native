@@ -1,5 +1,4 @@
-import { SafeAreaView, FlatList } from "react-native";
-import { News } from "../types";
+import { SafeAreaView, FlatList, ScrollView, View } from "react-native";
 import { getStyles } from "../Styles/main";
 import { RenderNewsPreview } from "../Components/RenderNewsPreview";
 import { RenderCategory } from "../Components/RenderCategory";
@@ -10,18 +9,23 @@ import { categoriesES, categoriesEN } from "../../global";
 import { SettingsContext } from "../Context/SettingsContext";
 import { Loading } from "../Components/Loading";
 import { translations } from "../Translations/main";
+import { RenderBigImgs } from "../Components/RenderBigImgs";
 
 export default function MainScreen() {
+  // Styles & Translations
   const { theme, language } = useContext(SettingsContext);
   const styles = getStyles(theme);
-
   const textTranslations = translations[language];
 
+  //News & Actual Category state
   const [actualCategory, setActualCategory] = useState("Latest");
   const { isLoading, actualNews } = useFetchNews(actualCategory);
+  const reversedNews = actualNews ? actualNews.slice().reverse() : [];
+  const fiveNews = reversedNews.slice(0, 5);
 
   return (
     <SafeAreaView style={styles.mainContainer}>
+      {/* CATEGORIES */}
       <FlatList
         style={styles.searchCategoryContainer}
         horizontal
@@ -34,18 +38,26 @@ export default function MainScreen() {
           />
         )}
       />
+      {/* NEWS FLAT LIST */}
       {isLoading ? (
         <Loading />
       ) : (
         <FlatList
           style={styles.newsContainer}
           data={actualNews}
+          ListHeaderComponent={() => (
+            <FlatList
+              ItemSeparatorComponent={() => <View style={{ width: 16 }} />}
+              style={styles.mainImgs}
+              horizontal
+              data={fiveNews}
+              renderItem={({ item }) => <RenderBigImgs item={item} />}
+            />
+          )}
           ListEmptyComponent={() => (
             <NothingToSeeMsg message={textTranslations.error} />
           )}
-          renderItem={({ item }: { item: News }) => (
-            <RenderNewsPreview item={item} />
-          )}
+          renderItem={({ item }) => <RenderNewsPreview item={item} />}
         />
       )}
     </SafeAreaView>

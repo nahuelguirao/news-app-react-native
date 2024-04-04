@@ -1,10 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import { API_KEY, BASE_URL } from "../../global";
 import { SettingsContext } from "../Context/SettingsContext";
+import { News } from "../types";
 
 export function useFetchNews(actualCategory: string) {
   const { country } = useContext(SettingsContext);
-  const [actualNews, setActualNews] = useState();
+  const [actualNews, setActualNews] = useState<News[]>();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 

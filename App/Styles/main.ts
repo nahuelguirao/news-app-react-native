@@ -42,7 +42,7 @@ export const getStyles = (theme: string) => {
     },
     searchCategoryContainer: {
       height: mobile ? 50 : 70,
-      maxHeight: 70,
+      maxHeight: mobile ? 50 : 70,
     },
     searchCategory: {
       marginRight: 30,
@@ -66,6 +66,30 @@ export const getStyles = (theme: string) => {
     },
     newsContainer: {
       marginTop: 5,
+    },
+    mainImgs: {
+      marginBottom: 30,
+    },
+    mainImgsBox: {
+      borderWidth: 3,
+      borderColor: primaryColor,
+      borderRadius: 16,
+      overflow: "hidden",
+    },
+    mainImgsImg: {
+      aspectRatio: 16 / 9,
+      width: Dimensions.get("screen").width * 0.75,
+    },
+    mainImgsTitle: {
+      fontSize: mediumText,
+      position: "absolute",
+      bottom: 0,
+      zIndex: 1,
+      color: "#EEEEEE",
+      backgroundColor: "#202020c9",
+      paddingHorizontal: 10,
+      paddingVertical: 15,
+      width: "100%",
     },
     card: {
       width: Dimensions.get("window").width * 0.9,
