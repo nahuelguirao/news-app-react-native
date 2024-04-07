@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { useDebounce } from "./useDebounce";
-import { API_KEY } from "../../global";
+import { API_KEY } from "../global";
 import { SettingsContext } from "../Context/SettingsContext";
 
 export function useFetchSearch() {

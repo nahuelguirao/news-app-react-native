@@ -1,11 +1,11 @@
-import { SafeAreaView, FlatList, ScrollView, View } from "react-native";
+import { SafeAreaView, FlatList, View } from "react-native";
 import { getStyles } from "../Styles/main";
 import { RenderNewsPreview } from "../Components/RenderNewsPreview";
 import { RenderCategory } from "../Components/RenderCategory";
 import { NothingToSeeMsg } from "../Components/NothingToSeeMsg";
 import { useFetchNews } from "../hooks/useFetchNews";
 import { useContext, useState } from "react";
-import { categoriesES, categoriesEN } from "../../global";
+import { categoriesEN, categoriesES } from "../global";
 import { SettingsContext } from "../Context/SettingsContext";
 import { Loading } from "../Components/Loading";
 import { translations } from "../Translations/main";

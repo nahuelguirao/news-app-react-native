@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { API_KEY, BASE_URL } from "../../global";
+import { API_KEY, BASE_URL } from "../global";
 import { SettingsContext } from "../Context/SettingsContext";
 import { News } from "../types";
 
